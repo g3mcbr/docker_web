@@ -1,4 +1,5 @@
 FROM ubuntu:latest
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update; apt-get install -y apache2 net-tools curl
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/C=US/ST=KY/L=Gtown/O=Example Gtown Company/CN=exampleGtown.com" -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -addext subjectAltName=DNS:localhost,DNS:mylamedomain.org,IP:127.0.0.1
 RUN openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
