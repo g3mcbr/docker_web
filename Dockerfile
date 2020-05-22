@@ -6,7 +6,7 @@ RUN openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
 COPY ssl-params.conf /etc/apache2/conf-available/ssl-params.conf
 COPY dev.conf /etc/apache2/sites-available/dev.conf
 COPY index.html /var/www/html/index.html
-#COPY bogus /var/www/html/
+COPY bogus /var/www/html/
 RUN a2enmod ssl
 RUN a2enmod headers
 RUN a2enconf ssl-params.conf
