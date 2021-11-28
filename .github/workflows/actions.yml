@@ -10,7 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build docker image
-      run: docker build -t $IMAGE_NAME:$(date +%m%d%Y-%H%M) -t $IMAGE_NAME:latest .
+#      run: docker build -t $IMAGE_NAME:$(date +%m%d%Y-%H%M) -t $IMAGE_NAME:latest .
+      run: docker build -t $IMAGE_NAME:${{ github.run_id }} -t $IMAGE_NAME:latest .
       env:
         IMAGE_NAME: g3mcbr/docker_web
 
@@ -33,4 +34,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Update kubernetes deployment image
-      run: kubectl -n docker-web set image deployment/docker-web docker-web=g3mcbr/docker_web:latest
+      run: kubectl -n docker-web set image deployment/docker-web docker-web=g3mcbr/docker_web:${{ github.run_id }}
