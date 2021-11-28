@@ -33,4 +33,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Update kubernetes deployment image
-      run: kubectl -n stage set image deployment/docker-web docker-web=g3mcbr/docker_web:latest
+      run: kubectl -n docker-web set image deployment/docker-web docker-web=g3mcbr/docker_web:latest
