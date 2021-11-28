@@ -5,14 +5,14 @@ on: [push]
 jobs:
 
   build:
-#    runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+#    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
     - name: Build docker image
       run: docker build -t $IMAGE_NAME:$(date +%m%d%Y-%H%M) -t $IMAGE_NAME:latest .
       env:
-        IMAGE_NAME: g3mcbr/tc_web
+        IMAGE_NAME: g3mcbr/docker_web
 
     - name: Show images
       run: docker images
@@ -24,7 +24,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
     - name: Push tagged image to Docker Hub
-      run: docker push -a g3mcbr/tc_web
+      run: docker push -a g3mcbr/docker_web
 
   deploy:
     runs-on: self-hosted
