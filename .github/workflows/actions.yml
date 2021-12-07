@@ -40,3 +40,5 @@ jobs:
 #    - uses: actions/checkout@v2
     - name: Update kubernetes deployment image
       run: kubectl -n docker-web set image deployment/docker-web docker-web=g3mcbr/docker_web:${{ github.run_id }}
+      env:
+        KUBECONFIG=${{ secrets.KUBECONFIG }}
