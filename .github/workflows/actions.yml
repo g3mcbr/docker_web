@@ -32,6 +32,11 @@ jobs:
     needs: build
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Install kubectl
+      run: |
+        curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl
+        sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+ 
+#    - uses: actions/checkout@v2
     - name: Update kubernetes deployment image
       run: kubectl -n docker-web set image deployment/docker-web docker-web=g3mcbr/docker_web:${{ github.run_id }}
