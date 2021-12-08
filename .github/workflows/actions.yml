@@ -42,4 +42,4 @@ jobs:
  
     - name: Update kubernetes deployment image
 #      run: kubectl -n docker-web set image deployment/docker-web docker-web=g3mcbr/docker_web:${{ github.run_id }}
-      run: kubectl -n stage set image deployment/nginx-deployment nginx=nginx:1.17.1
+      run: kubectl -n stage set image deployment/nginx-deployment nginx=nginx:1.20
