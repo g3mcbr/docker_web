@@ -35,20 +35,20 @@ jobs:
     - name: Set kubectl context if master
       if: github.ref == 'refs/heads/master'
       run: |
-        echo "KUBE_CONTEXT=${{ PROD_KUBE_CONTEXT }}" >> "$GITHUB_ENV"
-        echo "KUBE_NS=${{ PROD_NS }} >> "$GITHUB_ENV"
-        echo "KUBE_DEPLOYMENT=${{ PROD_DEPLOYMENT }} >> "$GITHUB_ENV"
-        echo "KUBE_CONTAINER=${{ PROD_CONTAINER }} >> "$GITHUB_ENV"
-        echo "KUBE_IMAGE=${{ PROD_IMAGE }} >> "$GITHUB_ENV"
+        echo "KUBE_CONTEXT=${{ secrets.PROD_KUBE_CONTEXT }}" >> "$GITHUB_ENV"
+        echo "KUBE_NS=${{ secrets.PROD_NS }} >> "$GITHUB_ENV"
+        echo "KUBE_DEPLOYMENT=${{ secrets.PROD_DEPLOYMENT }} >> "$GITHUB_ENV"
+        echo "KUBE_CONTAINER=${{ secrets.PROD_CONTAINER }} >> "$GITHUB_ENV"
+        echo "KUBE_IMAGE=${{ secrets.PROD_IMAGE }} >> "$GITHUB_ENV"
 
     - name: Set kubectl context if stage
       if: github.ref == 'refs/heads/stage'
       run: |
-        echo "KUBE_CONTEXT=${{ STAGE_KUBE_CONTEXT }}" >> "$GITHUB_ENV"
-        echo "KUBE_NS=${{ STAGE_NS }} >> "$GITHUB_ENV"
-        echo "KUBE_DEPLOYMENT=${{ STAGE_DEPLOYMENT }} >> "$GITHUB_ENV"
-        echo "KUBE_CONTAINER=${{ STAGE_CONTAINER }} >> "$GITHUB_ENV"
-        echo "KUBE_IMAGE=${{ STAGE_IMAGE }} >> "$GITHUB_ENV"
+        echo "KUBE_CONTEXT=${{ secrets.STAGE_KUBE_CONTEXT }}" >> "$GITHUB_ENV"
+        echo "KUBE_NS=${{ secrets.STAGE_NS }} >> "$GITHUB_ENV"
+        echo "KUBE_DEPLOYMENT=${{ secrets.STAGE_DEPLOYMENT }} >> "$GITHUB_ENV"
+        echo "KUBE_CONTAINER=${{ secrets.STAGE_CONTAINER }} >> "$GITHUB_ENV"
+        echo "KUBE_IMAGE=${{ secrets.STAGE_IMAGE }} >> "$GITHUB_ENV"
 
     - name: Install kubectl
       run: |
