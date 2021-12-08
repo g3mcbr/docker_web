@@ -32,14 +32,33 @@ jobs:
     needs: build
 
     steps:
+    - name: Set kubectl context if master
+      if: github.ref == 'refs/heads/master'
+      run: |
+        echo "KUBE_CONTEXT=${{ PROD_KUBE_CONTEXT }}" >> "$GITHUB_ENV"
+        echo "KUBE_NS=${{ PROD_NS }} >> "$GITHUB_ENV"
+        echo "KUBE_DEPLOYMENT=${{ PROD_DEPLOYMENT }} >> "$GITHUB_ENV"
+        echo "KUBE_CONTAINER=${{ PROD_CONTAINER }} >> "$GITHUB_ENV"
+        echo "KUBE_IMAGE=${{ PROD_IMAGE }} >> "$GITHUB_ENV"
+
+    - name: Set kubectl context if stage
+      if: github.ref == 'refs/heads/stage'
+      run: |
+        echo "KUBE_CONTEXT=${{ STAGE_KUBE_CONTEXT }}" >> "$GITHUB_ENV"
+        echo "KUBE_NS=${{ STAGE_NS }} >> "$GITHUB_ENV"
+        echo "KUBE_DEPLOYMENT=${{ STAGE_DEPLOYMENT }} >> "$GITHUB_ENV"
+        echo "KUBE_CONTAINER=${{ STAGE_CONTAINER }} >> "$GITHUB_ENV"
+        echo "KUBE_IMAGE=${{ STAGE_IMAGE }} >> "$GITHUB_ENV"
+
     - name: Install kubectl
       run: |
         curl -LO https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl
         sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
     - name: set context
-      run: kubectl config use-context kbv
+      run: kubectl config use-context $KUBE_CONTEXT
  
     - name: Update kubernetes deployment image
+      run: kubectl -n $KUBE_NS set image deployment/$KUBE_DEPLOYMENT $KUBE_CONTAINER=$KUBE_IMAGE:${{ github.run_id }}
 #      run: kubectl -n docker-web set image deployment/docker-web docker-web=g3mcbr/docker_web:${{ github.run_id }}
-      run: kubectl -n stage set image deployment/nginx-deployment nginx=nginx:1.20
+#      run: kubectl -n stage set image deployment/nginx-deployment nginx=nginx:1.20
