@@ -31,6 +31,5 @@ runs:
           KUBECTL_VERSION: v1.20.11
         shell: bash
       -
-        # run: kubectl --context ${{ github.event.inputs.context }} set image ${{ github.event.inputs.type-name }} ${{ github.event.inputs.container-name }}=${{ github.event.inputs.container-image }}
         shell: bash
         run: kubectl --context ${{ inputs.context }} -n ${{ inputs.namespace }} set image ${{ inputs.type-name }} ${{ inputs.container-name }}=${{ inputs.container-image }}
