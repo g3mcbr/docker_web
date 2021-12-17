@@ -5,6 +5,9 @@ inputs:
   context:
     description: either secrets.STAGING_CONTEXT or secrets.PRODUCTION_CONTEXT
     required: true
+  namespace:
+    description: kubernetes namespace to run in
+    required: true
   type-name:
     description: type name, e.g. deployment/web
     required: true
@@ -23,7 +26,7 @@ runs:
         run: |
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
           sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-          kubectl version
+          kubectl --context ${{ inputs.context }} version
         env:
           KUBECTL_VERSION: 1.20.1
         shell: bash
