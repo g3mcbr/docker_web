@@ -57,6 +57,7 @@ jobs:
 
     # - name: set context
     #   run: kubectl config use-context $KUBE_CONTEXT
+    - uses: actions/checkout@v2
 
     - name: Update kubernetes deployment image
 #      run: kubectl config get-contexts
