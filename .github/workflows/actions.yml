@@ -70,4 +70,5 @@ jobs:
         namespace: ${{ secrets.PROD_NS }}
         type-name: deployment/${{ secrets.PROD_DEPLOYMENT }}
         container-name: ${{ secrets.PROD_CONTAINER }}
-        container-image: g3mcbr/docker_web:${{ github.run_id }}
+        container-image: ${{ secrets.PROD_IMAGE }}:${{ github.run_id }}
+        # container-image: g3mcbr/docker_web:${{ github.run_id }}
