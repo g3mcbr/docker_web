@@ -24,11 +24,11 @@ runs:
       -
         name: Install kubectl
         run: |
-          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          curl -LO "https://dl.k8s.io/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl"
           sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
           kubectl --context ${{ inputs.context }} version
         env:
-          KUBECTL_VERSION: 1.20.1
+          KUBECTL_VERSION: v1.20.11
         shell: bash
       -
         # run: kubectl --context ${{ github.event.inputs.context }} set image ${{ github.event.inputs.type-name }} ${{ github.event.inputs.container-name }}=${{ github.event.inputs.container-image }}
