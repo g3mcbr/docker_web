@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: docker-web
+  labels:
+    app: docker-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: docker-web
+  template:
+    metadata:
+      labels:
+        app: docker-web
+    spec:
+      containers:
+      - name: docker-web
+        image: nginx:1.16.1
+#        image: docker-web:latest
+        resources:
+          limits:
+            memory: "350Mi"
+            cpu: "350m"
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 80
+#        volumeMounts:
+#        - mountPath: "/data"
+#          name: nginx-data
+#      volumes:
+#      - name: nginx-data
+#        persistentVolumeClaim:
+#          claimName: nginx-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: docker-web
+  labels:
+    app: docker-web
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: docker-web
+---
+apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+  name: docker-web
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - host: docker-web.donotpassgo.net
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: docker-web
+          servicePort: 80
