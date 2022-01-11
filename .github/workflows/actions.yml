@@ -52,5 +52,10 @@ jobs:
         version: 'v1.20.11'
       id: install
 
+    - uses: azure/k8s-set-context@v2
+      with:
+        method:kubeconfig
+        context: docker-web-sa
+
     - name: Test command
       run: kubectl --context docker-web-sa version
