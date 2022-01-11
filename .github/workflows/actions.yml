@@ -54,7 +54,7 @@ jobs:
 
     - uses: azure/k8s-set-context@v2
       with:
-        method:kubeconfig
+        method: kubeconfig
         context: docker-web-sa
 
     - name: Test command
