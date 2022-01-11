@@ -53,4 +53,4 @@ jobs:
       id: install
 
     - name: Test command
-      run: kubectl version
+      run: kubectl --context docker-web-sa version
