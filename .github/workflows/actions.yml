@@ -59,12 +59,12 @@ jobs:
 
     - uses: Azure/k8s-deploy@v1.4
       with:
-      namespace: '${{ secrets.PROD_NS }}'
-      manifests: |
-          deployment.yaml
-      # images: 'contoso.azurecr.io/myapp:${{ event.run_id }}'
-      images: '${{ secrets.PROD_IMAGE }}:${{ github.run_id }}'
-      kubectl-version: 'v1.20.12'
+        namespace: '${{ secrets.PROD_NS }}'
+        manifests: |
+            deployment.yaml
+        # images: 'contoso.azurecr.io/myapp:${{ event.run_id }}'
+        images: '${{ secrets.PROD_IMAGE }}:${{ github.run_id }}'
+        kubectl-version: 'v1.20.12'
 
     - name: Test command
       run: kubectl --context docker-web-sa version
